@@ -57,30 +57,22 @@ with open('love.csv') as f:
     set4 = twoWord + threeWord
     
     userList = []
-    userLine1 = input('LINE 1: ')
+    userLine1 = input('LINE 1: ').lower()
     splitLine1 = userLine1.split()
     userList.append(splitLine1)
-    if userList == set1:
-        print('Great')
-    elif userList == set2:
-        print('Great')
-    elif userList == set3:
-        print('Great')
-    elif userList == set4:
-        print('Great')
-    else:
-        print('Oops')
-    print(userList)
-
-#    if userLine1 == oneWord + oneWord + oneWord + oneWord + oneWord:
-#        print('Great job!')
-#    elif userLine1 == oneWord + twoWord + twoWord:
-#        print('Great job!')
-#    elif userLine1 == oneWord + oneWord + oneWord + twoWord:
-#        print('Great Job!')
-#    elif userLine1 == twoWord + threeWord:
-#        print('Great job!')
     
+#    if userList == set1:
+#        print('Great')
+#    elif userList == set2:
+#        print('Great')
+#    elif userList == set3:
+#        print('Great')
+#    elif userList == set4:
+#        print('Great')
+#    else:
+#        print('Oops')
+#    print(userList)
+#    
 #    line2 = 7
 #    line3 = 5
 #    userLine2 = input('LINE 2: ')
