@@ -21,25 +21,18 @@ class User(object):
     # to see if it matches the secret word
     # the secret word is hotdog
     # if a user guesses wrong a life is taken
-    def poem(self):
-        line1 = [input('LINE 1: ').lower()]
-        with open('love.csv') as csvfile:
-            header = csvfile.next()
-            total = 0
-            for row in csv.reader(csvfile):
-                total += int(row[1])
-            print(total)
-            
-#        if guess != 'hotdog':
-#            self.lives = self.lives - 1
-#            print(self.name + ', you have ' + str(self.lives) + ' lives left.')
-#        elif guess == 'hotdog':
-#            print(self.name + ', you won!')
-#            print(emoji.emojize(':sparkling_heart: :star: :sparkling_heart: :star: :sparkling_heart:', use_aliases=True))
-#            playAgain()
-#        if self.lives == 0:
-#            print('Sorry, ' + self.name + ' you died.')
-#            playAgain()
+    def takeGuess(self):
+        guess = input('Please guess the secret word: ')    
+        if guess != 'hotdog':
+            self.lives = self.lives - 1
+            print(self.name + ', you have ' + str(self.lives) + ' lives left.')
+        elif guess == 'hotdog':
+            print(self.name + ', you won!')
+            print(emoji.emojize(':sparkling_heart: :star: :sparkling_heart: :star: :sparkling_heart:', use_aliases=True))
+            playAgain()
+        if self.lives == 0:
+            print('Sorry, ' + self.name + ' you died.')
+            playAgain()
 
 # open csv to read
 reader = csv.reader(open('love.csv', 'r'))
@@ -68,7 +61,7 @@ def play():
     lives = 3
     user.death(lives)
     for i in range(3):
-        user.poem()
+        user.takeGuess()
 
 # play again allows user to determine whether they want to play again
 def playAgain():
