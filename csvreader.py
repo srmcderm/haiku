@@ -11,7 +11,7 @@ with open('love.csv') as f:
     
     # get rid of ordered dictionary
     # format into json
-    print(json.dumps(words))
+    jsonWords = (json.dumps(words))
     
     print('-'*20)
     # convert syllable #'s into integers
@@ -57,6 +57,7 @@ with open('love.csv') as f:
 
     # syllable set variables
     # all of these equal five
+    # they all contain an integer value
     set1 = oneWord + oneWord + oneWord + oneWord + oneWord
     set2 = oneWord + twoWord + twoWord
     set3 = oneWord + oneWord + oneWord + twoWord
