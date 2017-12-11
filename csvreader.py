@@ -1,11 +1,17 @@
 # author: @shannonmcdermitt
 
 import csv
+import collections
+import json
 
 # turn CSV into dictionary
 with open('love.csv') as f:
     reader = csv.DictReader(f)
     words = list(reader)
+    
+    # get rid of ordered dictionary
+    # format into json
+    print(json.dumps(words))
     
     print('-'*20)
     # convert syllable #'s into integers
@@ -31,7 +37,7 @@ with open('love.csv') as f:
         if w['syllables'] == 1:
             for i in w['word']:
                 oneWord = w['syllables']        
-            print(w['word'])
+#            print(w['word'])
     
     print('-'*20)
     # print words with 2 syllables
@@ -39,7 +45,7 @@ with open('love.csv') as f:
         if w['syllables'] == 2:
             for i in w['word']:
                 twoWord = w['syllables'] 
-            print(w['word'])
+#            print(w['word'])
             
     print('-'*20)
     # print words with 2 syllables
@@ -47,8 +53,8 @@ with open('love.csv') as f:
         if w['syllables'] == 3:
             for i in w['word']:
                 threeWord = w['syllables'] 
-            print(w['word'])
-    
+#            print(w['word'])
+
     # syllable set variables
     # all of these equal five
     set1 = oneWord + oneWord + oneWord + oneWord + oneWord
@@ -56,6 +62,8 @@ with open('love.csv') as f:
     set3 = oneWord + oneWord + oneWord + twoWord
     set4 = twoWord + threeWord
     
+    # create empty list
+    # append user input to list as individual words
     userList = []
     userLine1 = input('LINE 1: ').lower()
     splitLine1 = userLine1.split()
@@ -78,6 +86,4 @@ with open('love.csv') as f:
 #    userLine2 = input('LINE 2: ')
 #    userLine3 = input('LINE 3: ')
 #    
-#    
-    
-#    
+
