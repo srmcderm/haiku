@@ -1,3 +1,5 @@
+# author: @shannonmcdermitt
+
 import csv
 import os
 import emoji

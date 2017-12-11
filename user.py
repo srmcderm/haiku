@@ -1,3 +1,5 @@
+# author: @shannon mcdermitt
+
 # you need to pip install emoji the way you'd import bs4 via command line
 # i just think the emojis are really cute and can't help myself
 # import statements

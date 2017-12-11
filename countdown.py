@@ -1,3 +1,5 @@
+# author: @shannonmcdermitt
+
 import time
 def countdown(n):
     while n > 0:

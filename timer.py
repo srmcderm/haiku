@@ -1,3 +1,5 @@
+# author: @shannonmcdermitt
+
 import os
 import time
 # code to create beep
