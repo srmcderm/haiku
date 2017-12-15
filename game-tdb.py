@@ -1,3 +1,7 @@
+# author: @shannonmcdermitt
+# author: @shelbyfoxpurrier
+# author: @caracastillo
+
 
 # TDB ADDED: Added json module here
 import os, time, random, csv, collections, json 
@@ -16,13 +20,10 @@ class User(object):
     def death(self, lives):
         self.lives = lives
         
-        
     def csvImport(self):
-        input_file = csv.DictReader(open("love.csv"))
+        input_file = csv.DictReader(open('love.csv'))
         return input_file
         #return dict_list
-        
-        
     
     # TDB ADDED
     def randomWords(self, num):
@@ -36,66 +37,70 @@ class User(object):
         listOfWordsRandom = random.sample(listOfWords, num)
         return listOfWordsRandom
     
-
-    def takeGuess(self):
-        
+    def takeGuess(self, i):
         words = self.csvImport() # TDB ADDED: get words
         correctWords = {} # TDB ADDED: set up dictionary for correct words
         sumSyllables = 0 # TDB ADDED: set up to sum syllables
         
         # TDB ADDED: 3 lines
-        for i in range(1,3):
-        
-            guess = input('Please enter line #'+str(i)+' of the haiku (separate each word by a space): ')    
-            word_guesses = guess.split(' ') # TDB ADDED: split into list
-
-            # TDB ADDED: Iterate throu dictionary
-            for row in words:
-                # TDB ADDED: iterate through input words
-                for k,w in enumerate(word_guesses):
+#        for i in range(1,3):
+        guess = input('Please enter line #'+str(i)+' of the haiku (separate each word by a space): ')    
+        word_guesses = guess.split(' ') # TDB ADDED: split into list
+            
+        # TDB ADDED: Iterate throu dictionary
+        for row in words:
+              # TDB ADDED: iterate through input words
+            for k,w in enumerate(word_guesses):
                     
-                    # TDB ADDED: Find a match
-                    if w == row['word']:
-                        # TDB ADDED:  Add syllables count
-                        correctWords[row['word']] = int(row['syllables'])
-            
-            # TDB ADDED: Do something depending on line of haiku
-            if i == 1:
-                sumSyllables = sum(correctWords.values()) # TDB ADDED: Sum syllables entered
+                # TDB ADDED: Find a match
+                if w == row['word']:
+                    # TDB ADDED:  Add syllables count
+                    correctWords[row['word']] = int(row['syllables'])
+                        
+        # TDB ADDED: Do something depending on line of haiku
+        if i == 1:
+            sumSyllables = sum(correctWords.values()) # TDB ADDED: Sum syllables entered
                 
-                # TDB ADDED: 5 syllables first line
-                if sumSyllables == 5:
-                    print("Great! That is correct for line #"+str(i))
-                else:
-                    ("Wrong!")
-                    self.lives = self.lives - 1
-                    print(self.name + ', you have ' + str(self.lives) + ' lives left.')
-            
-            
-            
-            
-            
-            print(sumSyllables)
-            print(correctWords)
-            exit()
-            """            
-            if guess != 'hotdog':
+            # TDB ADDED: 5 syllables first line
+            if sumSyllables == 5:
+                print('Great! That is correct for line #'+str(i))
+            else:
+                ('Wrong!')
                 self.lives = self.lives - 1
                 print(self.name + ', you have ' + str(self.lives) + ' lives left.')
-            elif guess == 'hotdog':
-                print(self.name + ', you won!')
-                print(emoji.emojize(':sparkling_heart: :star: :sparkling_heart: :star: :sparkling_heart:', use_aliases=True))
-                
-                playAgain()
-            if self.lives == 0:
-                print('Sorry, ' + self.name + ' you died.')
-                playAgain()
-                
+                options()
+            print('You used ' + str(sumSyllables) + ' syllables')
+            print(correctWords)
             
-            """    
+        elif i == 2:
+            sumSyllables = sum(correctWords.values()) # TDB ADDED: Sum syllables entered
+            if sumSyllables == 7:
+                print('Great! That is correct for line #'+str(i))
+            else:
+                ('Wrong!')
+                self.lives = self.lives - 1                   
+                print(self.name + ', you have ' + str(self.lives) + ' lives left.')
+                options()
+            print('You used ' + str(sumSyllables) + ' syllables.')
+            print(correctWords)
+            
+        elif i == 3:
+            sumSyllables = sum(correctWords.values()) # TDB ADDED: Sum syllables entered
+            if sumSyllables == 5:
+                print("Great! That is correct for line #"+str(i))
+            else:
+                ('Wrong!')
+                self.lives = self.lives - 1                   
+                print(self.name + ', you have ' + str(self.lives) + ' lives left.')
+                options()
+            print('You used ' + str(sumSyllables) + ' syllables')
+            print(correctWords)
+                
+            exit()
             
 # play function gives users the opportunity to have 3 guesses
 # the for loop regulates this
+
 def play():
     user = User(input('Hello friend, what is your name? '))
     print('')
@@ -103,15 +108,25 @@ def play():
     
     #TDB ADDED: Get random words from object
     randomWords = user.randomWords(20)
-    print('Chose from the following words:\n')
+    print('Choose from the following words:\n')
     for w in randomWords:
         print('\t'+w)
         
     lives = 3
     user.death(lives)
-    for i in range(3):
-        user.takeGuess()
-
+    user.takeGuess(1)
+    user.takeGuess(2)
+    user.takeGuess(3)
+    if lives == 3:
+        print('You made it through round one.')
+    elif lives == 2:
+        print('You lost a life, but that\'s okay.')
+    elif lives == 1:
+        print('Uh oh, one life left.')
+    elif lives == 0:
+        print(emoji.emojize('DEATH! :skull: :skull: :skull:',use_aliases=True))
+        playAgain()
+    
 # play again allows user to determine whether they want to play again
 def playAgain():
     playAgain = input('Do you want to play again? y or n? ').lower()
@@ -123,35 +138,39 @@ def playAgain():
 
 # list of instructions for player
 def instructions():
-    print("\nYou must create a haiku poem within the designated time limit.")
-    print("\n60 seconds for easy, 45 seconds for medium, and 30 seconds for hard.")
-    print("\nWhen your time is up a beep will sound and TIME IS UP will display on screen.")
-    print("\nIf you fail to complete the haiku in time, you will lose a life!")
-    print("\nLose 3 lives and it's game over!")
+    print('\nYou must create a haiku poem within the designated time limit.')
+    print('\n60 seconds for easy, 45 seconds for medium, and 30 seconds for hard.')
+    print('\nYou cannot repeat words!')
+    print('\nWhen your time is up a beep will sound and TIME IS UP will display on screen.')
+    print('\nIf you fail to complete the haiku in time, you will lose a life!')
+    print('\nLose 3 lives and it's game over!')
 
 # option to choose level of difficulty
 def options():
     b = 0
     # while loop creates avenue to close program
     while b == 0:
-        choice = input("Press 1 for easy, 2 for medium, 3 for hard, or 4 to exit: ")
-        if choice == "1":
-            play()
+        choice = input('Press 1 for easy, 2 for medium, 3 for hard, or 4 to exit: ')
+        if choice == '1':
             print('EASY')
+            print('Your timer starts now. You have 60 seconds.')
             timer(60)
-        elif choice == "2":
             play()
+        elif choice == '2':
             print('MEDIUM')
+            print('Your timer starts now. You have 45 seconds.')
             timer(45)
-        elif choice == "3":
             play()
+        elif choice == '3':
             print('HARD')
-            timer(10)
-        elif choice == "4":
+            print('Your timer starts now. You have 30 seconds.')
+            timer(30):
+            play()
+        elif choice == '4':
             print("Goodbye")
             b = 1
         else:
-            print("Please press 1 for easy, 2 for medium, 3 for hard, or 4 to exit:")
+            print('Please press 1 for easy, 2 for medium, 3 for hard, or 4 to exit:')
 
 # timer function 
 # pass amount of time in seconds as argument in timer param
@@ -167,8 +186,10 @@ def timer(n):
             
 # welcome message
 def welcome():
-    print("\nWelcome to our Haiku puzzle extravaganza!")
+    print(emoji.emojize('\n:sparkles:Welcome to our Haiku puzzle extravaganza!:sparkles:', use_aliases=True))
     instructions()
     options()
 
-play()
+welcome()
+instructions()
+options()
